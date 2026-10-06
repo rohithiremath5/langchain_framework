@@ -8,5 +8,18 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "@langchain/anthropic": "^1.5.12",
+    "@langchain/core": "^1.2.16",
+    "@langchain/google": "^0.2.9",
+    "@langchain/openai": "^1.6.2",
+    "@types/node": "^24.10.0",
+    "dotenv": "^18.0.5",
+    "langchain": "^1.5.15",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "zod": "^4.1.12"
+  }
 }
