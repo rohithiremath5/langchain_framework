@@ -1,12 +1,14 @@
-import { createAgent } from "langchain";
+import { createAgent, tool } from "langchain";
 import { ChatGoogle } from "@langchain/google"
 import "dotenv/config"
 
-const model = new ChatGoogle({ model: "gemini-3.8-flash" })
+const toolResponse = tool()
+
+const model = new ChatGoogle({ model: "gemini-3.8-flash", tool: [toolResponse] })
 const agent = createAgent({ model })
 
 const result = await agent.invoke({
-    messages: [{ role: "user", content: "Write a poem about the beauty of nature." }]
+    messages: [{ role: "user", content: "what is the weather in New York?" }]
 })
 
 const response = result.messages[result.messages.length - 1].content
