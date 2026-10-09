@@ -4,8 +4,10 @@ import "dotenv/config"
 import z from "zod";
 import { getWeather } from "./api/weather";
 import { getTime } from "./api/timeDate";
+import { getDetails } from "./utils/getUserDetails";
+import { config } from "./config/userConfig";
 
-const toolResponse = tool((input) => {
+const getweather = tool((input) => {
     // This is a mock implementation of the weather tool. In a real-world scenario, you would fetch the weather data from an API.
     // return "The current weather in New York is 75°F and sunny."
     return getWeather(input.city)
@@ -27,15 +29,26 @@ const getTimeDate = tool((input) => {
     })
 })
 
+const getUserDetails = tool((_, config) => {
+    const userId = config.context.userId;
+    return getDetails(userId)
+}, {
+    name: "getUserDetails",
+    description: "Get the user details for a given user ID",
+    schema: z.object({}),
+})
+
+
+
 const model = new ChatGoogle({ model: "gemini-3.8-flash" })
 const agent = createAgent({
     model,
-    tools: [toolResponse, getTimeDate]
+    tools: [getUserDetails, getweather, getTimeDate]
 })
 
 const result = await agent.invoke({
-    messages: [{ role: "user", content: "what is the weather and time in los angeles?" }]
-})
+    messages: [{ role: "user", content: "what is the weather and time here" }]
+}, config)
 
 console.log(result)
 const response = result.messages[result.messages.length - 1].content
