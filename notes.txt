@@ -154,3 +154,61 @@ A tool can return:
 ### Key Point
 
     > Tools give an LLM the ability to interact with the outside world instead of only generating text.
+
+## Implementing Tools in LangChain
+
+### Tool Function
+
+A tool is created using two arguments:
+
+    - 1st argument — Function: Contains the logic to execute the task.
+    - 2nd argument — Metadata: Describes the tool to the LLM.
+
+### Tool Metadata
+
+Metadata contains three important properties:
+
+    - Name → Identifies the tool.
+    - Description → Explains what the tool does; helps the LLM decide when to use it.
+    - Schema → Defines the expected inputs and their data types.
+
+### Schema Validation with Zod
+
+    - Zod is a TypeScript-first schema validation library.
+    - It defines the required input fields and their data types.
+    - Example: `city: z.string()` means the `city` field must be a string.
+
+### How a Tool Works
+
+    1. Register the tool with the agent.
+    2. The LLM reads the tool's name and description.
+    3. It decides whether the tool is suitable for the user's query.
+    4. It reads the schema and prepares the required input.
+    5. The function receives the input and executes its logic.
+    6. The tool returns the result to the LLM.
+    7. The LLM processes the result and responds to the user.
+
+### Example: Weather Tool
+
+
+    User: What's the weather in New York?
+                  ↓
+    LLM selects the weather tool
+                    ↓
+    Input: { city: "New York" }
+                    ↓
+    Tool executes weather logic/API call
+                    ↓
+    Result: "Sunny"
+                    ↓
+    LLM: The weather in New York is sunny.
+
+
+### Important Points
+
+    - The LLM chooses the appropriate tool based on its description.
+    - The schema tells the LLM what input to provide.
+    - The function contains the actual implementation.
+    - In real applications, the function can call an API or backend service.
+    - The lecture uses a hardcoded weather response to demonstrate the tool workflow.
+
