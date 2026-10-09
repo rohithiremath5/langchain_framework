@@ -1,0 +1,156 @@
+
+## Why LangChain?
+
+### Problem with LLMs
+LLMs like GPT, Gemini, Claude are powerful, but by themselves they:
+
+    - Don't know private/company data
+    - Can't directly access your database
+    - Can't automatically use your APIs/tools
+    - Don't have your application's business logic/workflows
+    - Have limited control over memory/context
+    - Need guardrails/filters for sensitive or unwanted requests
+    - Can't automatically decide which model/tool to use
+
+### What LangChain provides
+
+LangChain acts as a framework/wrapper around LLMs and provides:
+
+    - 🧠 LLM integration → Connect GPT, Gemini, Claude, etc.
+    - 🔧 Tools → Connect APIs, databases, web search, custom functions
+    - 📚 Retrieval/RAG → Use your documents and knowledge base
+    - 💾 Memory → Maintain relevant conversation/context
+    - 🔀 Logic & Workflows → Add conditions and control the flow
+    - 🛡️ Guardrails → Filter/validate input and output
+    - 🔄 Model switching/Fallbacks → Choose different models based on the task/cost
+    - 🤖 Agents → Allow LLMs to reason, choose tools, and perform actions
+
+### Simple Flow
+
+    LLM
+    +
+    Tools
+    +
+    Data/RAG
+    +
+    Memory
+    +
+    Logic
+    +
+    Guardrails
+        ↓
+    AI Application / AI Agent
+
+
+### Key Point
+
+    > LangChain does NOT replace the LLM. It adds capabilities around the LLM to build complete, intelligent AI applications.
+
+## LangChain Tools
+
+### What are Tools?
+
+    - Tools are functions that allow an AI agent to interact with the outside world.
+    - They can fetch data, execute code, query databases, call APIs, and perform actions. Pasted text
+    - The LLM decides when to use a tool and what arguments to provide. Pasted text
+
+### Creating Tools
+
+A tool mainly contains:
+
+    - Name → identifies the tool
+    - Description → tells the LLM what the tool does
+    - Schema → defines the required inputs
+    - Function → actual logic executed by the tool Pasted text
+
+Example:
+
+    search_database
+        ↓
+    query + limit
+        ↓
+    Database
+        ↓
+    Results
+
+
+### Context
+
+Tools can access runtime information such as:
+
+    - Conversation history
+    - User information
+    - Session details
+    - Application-specific settings
+    - Persistent memory Pasted text
+
+### Memory
+
+LangChain supports different types of memory:
+
+    - Short-term memory → maintains conversation/state using a thread/checkpointer.
+    - Long-term memory → stores information that can be used across different conversations. Pasted text
+
+    Short-term → Current conversation
+    Long-term  → Future conversations
+
+
+### Tool Return Values
+
+A tool can return:
+
+    - String → simple text result
+    - Object → structured data
+    - Command → update agent/application state Pasted text
+
+### Tool Error Handling
+
+    - Tool failures can be handled using middleware.
+    - Middleware can retry failed tools or return custom error messages. Pasted text
+
+### Dynamic Tools
+
+ Tools don't always have to be fixed.
+
+    - Tools can be enabled/disabled dynamically.
+    - Selection can depend on:
+    - User permissions
+    - Authentication
+    - Conversation state
+    - Feature flags
+    - User preferences Pasted text
+
+### Prebuilt Tools
+
+ LangChain provides ready-made tools for common tasks such as:
+
+    - Web search
+    - Code interpretation
+    - Database access
+    - Other common operations Pasted text
+
+### MCP Tools
+
+    - LangChain can connect to MCP (Model Context Protocol) servers.
+    - MCP provides a standard way to expose tools to LLM applications. Pasted text
+
+### Simple Mental Model
+
+    User
+    ↓
+    LLM / Agent
+    ↓
+    Decides which Tool to use
+    ↓
+    Tool → API / Database / Web / Code
+    ↓
+    Tool Result
+    ↓
+    LLM
+    ↓
+    Final Answer
+
+
+### Key Point
+
+    > Tools give an LLM the ability to interact with the outside world instead of only generating text.
